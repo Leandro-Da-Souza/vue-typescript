@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getEqupiment } from '../apiRequests'
+import { EquipmentModel } from '../types/EquipmentModel';
 
 
 Vue.use(Vuex)
@@ -9,7 +10,8 @@ export default new Vuex.Store({
   state: {
     merchandise: [],
     characterInventory: [],
-    showCart: false
+    showCart: false,
+    cart: [] as EquipmentModel[]
   },
   mutations: {
     SET_MERCH: (state, data) => {
@@ -17,6 +19,13 @@ export default new Vuex.Store({
     },
     TOGGLE_CART: (state) => {
       state.showCart = !state.showCart
+    },
+    SET_CART: (state, data) => {
+      if(state.cart.find(item => item.id === data.id))
+      {
+        return false;
+      } 
+      state.cart.push(data)
     }
   },
   actions: {
