@@ -1,13 +1,30 @@
 <template>
   <div class="shop">
-      <p>{{firstName}}</p>
+      <h3 v-if="this.equipment.length === 0">Loading...</h3>
+      <ul v-else>
+          <li v-for="item in equipment" :key="item.id">
+              <h3>{{item.name}}</h3>
+          </li>
+      </ul>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue} from 'vue-property-decorator'
+<script>
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component
 export default class Shop extends Vue {
-    firstName = 'Leo'
+    data() {
+        return {
+            equipment: []
+        }
+    }
+
+    async created() {
+        await this.$store.dispatch('GET_MERCH')
+        this.equipment = this.$store.state.merchandise
+    }
+   
 }
 </script>
 

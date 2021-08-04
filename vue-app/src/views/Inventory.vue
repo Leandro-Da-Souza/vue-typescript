@@ -1,15 +1,20 @@
 <template>
   <div class="inventory">
-      hello
+      <Character/>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+<script>
+import { Component, Vue } from 'vue-property-decorator'
+import Character from '../components/Character.vue'
 
-@Component
+@Component({
+    components: {
+        Character
+    }
+})
 export default class Inventory extends Vue {
-
+    
 }
 </script>
 

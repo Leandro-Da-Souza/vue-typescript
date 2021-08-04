@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-interface CharacterModel {
-    name: string;
-}
+import CharacterModel from './types/CharacterModel';
 
 async function getCharacter(): Promise<CharacterModel> {
     const url = 'http://localhost:5000/character';
@@ -11,4 +9,11 @@ async function getCharacter(): Promise<CharacterModel> {
     return resp.data;
 }
 
-export { CharacterModel, getCharacter }
+async function getEqupiment(): Promise<any> {
+    const url = 'http://localhost:5000/equipment';
+    const response = await axios.get<any>(url);
+    console.log(response)
+    return response.data
+}
+
+export { getCharacter, getEqupiment }

@@ -2,12 +2,14 @@
   <div class="character">
     <h1>Character</h1>
     <h2 v-if="character">Name: {{ character.name }}</h2>
+    {{character}}
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { CharacterModel, getCharacter } from '../apiRequests';
+import CharacterModel from '../types/CharacterModel.js'
+import { getCharacter } from '../apiRequests';
 
 @Component
 export default class Character extends Vue {
@@ -22,6 +24,7 @@ export default class Character extends Vue {
   // life-cycle hooks
   async mounted() {
     this.character = await getCharacter();
+    console.log(this.character)
   }
 }
 </script>
