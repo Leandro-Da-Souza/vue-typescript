@@ -14,6 +14,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator' 
 import Cart from './components/Cart.vue'
+import { getCharacter } from './apiRequests';
 
 @Component({
   components: {
@@ -24,6 +25,13 @@ export default class App extends Vue {
   handleClick() {
     this.$store.commit('TOGGLE_CART')
     console.log(this.$store.state.showCart)
+  }
+
+  async mounted() {
+    this.$store.state.character = await getCharacter()
+    if(this.$store.state.currency === null) {
+      this.$store.commit('SET_CURRENCY', this.$store.state.character.wealth)
+    }
   }
 }
 

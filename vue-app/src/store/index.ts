@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { getEqupiment } from '../apiRequests'
 import { EquipmentModel } from '../types/EquipmentModel';
+import CharacterModel from '../types/CharacterModel';
 
 
 Vue.use(Vuex)
@@ -9,6 +10,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     merchandise: [],
+    character: {} as CharacterModel,
     characterInventory: [],
     showCart: false,
     cart: [] as EquipmentModel[],
@@ -31,14 +33,16 @@ export default new Vuex.Store({
     ADD_CHARACTER_INVENTORY: (state, data) => {
       state.characterInventory.push(...data);
     },
+    UPDATE_CURRENCY: (state) => {
+      state.cart.forEach((el) => {
+        state.currency -= el.value
+      })
+    },
     CLEAR_CART: (state) => {
       state.cart = [] as EquipmentModel[];
-      console.log(state.cart)
-      console.log(state.characterInventory)
     },
     SET_CURRENCY: (state, data) => {
       state.currency = data
-      console.log(state.currency)
     }
   },
   actions: {

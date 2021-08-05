@@ -40,6 +40,7 @@ import { Component, Vue } from 'vue-property-decorator'
                 alert('You don\'t have enough gold')
             } else {
                 this.$store.commit('ADD_CHARACTER_INVENTORY', this.cartItems)
+                this.$store.commit('UPDATE_CURRENCY')
                 this.$store.commit('CLEAR_CART')
                 this.cartItems = []
             }

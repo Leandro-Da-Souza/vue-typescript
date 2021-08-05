@@ -18,7 +18,7 @@ export default class Character extends Vue {
 
   data() {
     return {
-      character: this.character,
+      character: this.$store.state.character,
       equipment: this.$store.state.characterInventory
     }
   }
@@ -39,9 +39,6 @@ export default class Character extends Vue {
         this.$store.commit('ADD_CHARACTER_INVENTORY', this.character.equipment)
       }
     })
-    if(this.$store.state.currency === null) {
-      this.$store.commit('SET_CURRENCY', this.character.wealth)
-    }
   }
 
 }
