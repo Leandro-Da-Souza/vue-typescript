@@ -28,9 +28,7 @@ export default class Shop extends Vue {
     }
 
     addToCart(element: EquipmentModel) {
-        console.log(element)
         this.$store.commit('SET_CART', element)
-        console.log(this.$store.state.cart)
     }
    
 }
