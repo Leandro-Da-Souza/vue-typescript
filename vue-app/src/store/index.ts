@@ -9,7 +9,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     merchandise: [],
-    characterInventory: [],
+    character: [],
     showCart: false,
     cart: [] as EquipmentModel[]
   },
