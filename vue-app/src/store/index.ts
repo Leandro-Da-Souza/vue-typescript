@@ -9,7 +9,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    merchandise: [],
+    merchandise: [] as EquipmentModel[],
     character: {} as CharacterModel,
     characterInventory: [],
     showCart: false,
@@ -43,6 +43,11 @@ export default new Vuex.Store({
     },
     SET_CURRENCY: (state, data) => {
       state.currency = data
+    },
+    REMOVE_FROM_CART: (state, data) => {
+      const index = state.cart.findIndex((i) => i.id === data.id);
+      state.cart.splice(index, 1);
+      console.log(state.cart)
     }
   },
   actions: {
@@ -55,6 +60,15 @@ export default new Vuex.Store({
         console.log(e)
       }
     }
+  },
+  getters:{
+    getCartPrice(state) {
+      let total = 0;
+      state.cart.forEach((item) => {
+          total += item.value;
+      });
+      return total;
+    },
   },
   modules: {
   }

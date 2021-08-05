@@ -4,9 +4,10 @@
             <ul v-if="cartItems.length > 0">
                 <li v-for="item in cartItems" class="cart-item" :key="item.id" >
                     <h2>{{ item.name }} - ${{ item.value }}</h2>
+                    <button @click="removeFromCart(item)">X</button>
                 </li>
                 <button @click="addToInventory">Buy Items</button>
-                <p>Total amount: {{getTotalValue}}</p>
+                <p>Total amount: {{ this.$store.getters.getCartPrice }}</p>
             </ul>
             <h3 v-else>
                 No items in your cart
@@ -23,7 +24,6 @@ import { Component, Vue } from 'vue-property-decorator'
         return {
             show: this.$store.state.showCart,
             cartItems: this.$store.state.cart,
-            totalValue: 0
         }
     },
     watch: {
@@ -44,14 +44,10 @@ import { Component, Vue } from 'vue-property-decorator'
                 this.$store.commit('CLEAR_CART')
                 this.cartItems = []
             }
-        }
-    },
-    computed: {
-        getTotalValue: function() {
-            this.cartItems.forEach(el => {
-                this.totalValue += el.value
-            })
-            return this.totalValue
+        },
+        removeFromCart(item) {
+            this.$store.commit('REMOVE_FROM_CART', item)
+            console.log(this.$store.state.cart)
         }
     }
 })
