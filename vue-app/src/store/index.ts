@@ -11,7 +11,8 @@ export default new Vuex.Store({
     merchandise: [],
     characterInventory: [],
     showCart: false,
-    cart: [] as EquipmentModel[]
+    cart: [] as EquipmentModel[],
+    currency: null
   },
   mutations: {
     SET_MERCH: (state, data) => {
@@ -34,6 +35,10 @@ export default new Vuex.Store({
       state.cart = [] as EquipmentModel[];
       console.log(state.cart)
       console.log(state.characterInventory)
+    },
+    SET_CURRENCY: (state, data) => {
+      state.currency = data
+      console.log(state.currency)
     }
   },
   actions: {

@@ -4,6 +4,7 @@
       <router-link to="/">Shop</router-link> |
       <router-link to="/inventory">Inventory</router-link>
       <button @click="handleClick">Show Cart</button>
+      <p>Your Money: ${{this.$store.state.currency}}</p>
     </div>
     <router-view/>
     <Cart/>
