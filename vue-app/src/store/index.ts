@@ -28,7 +28,7 @@ export default new Vuex.Store({
       state.cart.push(data)
     },
     ADD_CHARACTER_INVENTORY: (state, data) => {
-      state.characterInventory.push(data);
+      state.characterInventory.push(...data);
     },
     CLEAR_CART: (state) => {
       state.cart = [] as EquipmentModel[];

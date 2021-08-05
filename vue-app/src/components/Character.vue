@@ -1,8 +1,8 @@
 <template>
-  <div class="character">
+  <div class="character" @load.once="setCharaterInventory()">
     <h1>Character</h1>
     <h2 v-if="character">Name: {{ character.name }}</h2>
-    {{this.equipment}}
+    {{ equipment }}
   </div>
 </template>
 
@@ -12,28 +12,33 @@ import CharacterModel from '../types/CharacterModel.js'
 import { EquipmentModel } from '../types/EquipmentModel'
 import { getCharacter } from '../apiRequests';
 
-@Component({
-  watch: {
-    '$store.state.characterInventory': function() {
-      this.equipment = this.$store.state.characterInventory
-    }
-  }
-})
+@Component()
 export default class Character extends Vue {
   private character?: CharacterModel = undefined;
-  public equipment?: EquipmentModel[] = [];
 
   data() {
     return {
       character: this.character,
-      equipment: this.equipment
+      equipment: this.$store.state.characterInventory
     }
   }
+
+  setCharaterInventory() {
+    this.$store.commit('ADD_CHARACTER_INVENTORY', ...this.character.equipment)
+  }
+  
+  
 
   // life-cycle hooks
   async mounted() {
     this.character = await getCharacter();
-    this.$store.commit('ADD_CHARACTER_INVENTORY', this.character.equipment)
+    this.character.equipment.forEach(el => {
+      if(this.equipment.find(item => item.id === el.id)) {
+        console.log('item exists')
+      } else {
+        this.$store.commit('ADD_CHARACTER_INVENTORY', this.character.equipment)
+      }
+    })
   }
 
 }
