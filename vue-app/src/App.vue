@@ -59,6 +59,7 @@ export default class App extends Vue {
   -moz-osx-font-smoothing: grayscale;
   color: var(--global-paragraph-color);
   background-color: var(--global-background-color);
+  background-image: url('./images/brick-wall.png')
 }
 
 #nav {
