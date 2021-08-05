@@ -1,13 +1,27 @@
 <template>
-  <div class="shop">
-      <h3 v-if="this.equipment.length === 0">Loading...</h3>
-      <ul v-else>
-          <li v-for="item in equipment" :key="item.id">
-              <h3>{{item.name}}</h3>
-              <button @click="addToCart(item)">Add To Cart</button>
-          </li>
-      </ul>
-  </div>
+    <div class="container">
+        <h2>Available Merchandise</h2>
+        <div class="shop">
+            <h3 v-if="this.equipment.length === 0">Loading...</h3>
+            <ul v-else class="shop-list">
+                <li v-for="item in equipment" :key="item.id" class="shop-list-item">
+                    <h3>{{item.name}}</h3>
+                    <p>Type: {{item.type }}</p>
+                    <div class="modifiers">
+                        <div class="wrapper">
+                            <p>Hit Points</p>
+                            {{ item.hpModifier }}
+                        </div>
+                        <div class="wrapper">
+                            <p>Luck Points</p>
+                            {{ item.luckModifier}}
+                        </div>
+                    </div>
+                    <button @click="addToCart(item)">Add To Cart</button>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
@@ -28,13 +42,52 @@ export default class Shop extends Vue {
     }
 
     addToCart(element: EquipmentModel) {
-        console.log(element)
+        console.log('hello')
         this.$store.commit('SET_CART', element)
     }
    
 }
 </script>
 
-<style>
+<style scoped>
+.container {
+    display: flex;
+    width: 70vw;
+    height: 50vh;
+    flex-direction: column;
+    align-center: center;
+    justify-content: center;
+}
+
+.container h2 {
+    text-align: center;
+}
+.shop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw;
+}
+.shop-list {
+    display: grid;
+    width: 90%;
+    height: 90%;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    /* border: 1px solid white; */
+    list-style-type: none;
+}
+.shop-list-item {
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+
+}
+.modifiers {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
 
 </style>

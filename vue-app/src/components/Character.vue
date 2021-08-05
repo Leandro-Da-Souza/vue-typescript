@@ -1,7 +1,12 @@
 <template>
-  <div class="character" @load.once="setCharaterInventory()">
+  <div class="character">
     <h1>Character</h1>
     <h2 v-if="character">Name: {{ character.name }}</h2>
+    <h1>Character Stats</h1>
+    <ul>
+      <li>Hit Points: {{ character.hitPoints + this.$store.getters.getInventoryHitPoints }}</li>
+      <li>Luck: {{ character.luck + this.$store.getters.getInventoryLuckPoints }}</li>
+    </ul>
     {{ equipment }}
   </div>
 </template>
@@ -9,7 +14,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import CharacterModel from '../types/CharacterModel.js'
-import { EquipmentModel } from '../types/EquipmentModel'
 import { getCharacter } from '../apiRequests';
 
 @Component()
@@ -22,11 +26,6 @@ export default class Character extends Vue {
       equipment: this.$store.state.characterInventory
     }
   }
-
-  setCharaterInventory() {
-    this.$store.commit('ADD_CHARACTER_INVENTORY', ...this.character.equipment)
-  }
-  
   
 
   // life-cycle hooks
@@ -39,6 +38,7 @@ export default class Character extends Vue {
         this.$store.commit('ADD_CHARACTER_INVENTORY', this.character.equipment)
       }
     })
+    console.log(this.character)
   }
 
 }

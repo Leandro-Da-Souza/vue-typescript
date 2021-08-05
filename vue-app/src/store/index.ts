@@ -24,11 +24,12 @@ export default new Vuex.Store({
       state.showCart = !state.showCart
     },
     SET_CART: (state, data) => {
-      if(state.cart.find(item => item.id === data.id))
-      {
+      if(state.cart.find(item => item.id === data.id)){
         return false;
       } 
-      state.cart.push(data)
+      else {
+        state.cart.push(data)
+      }
     },
     ADD_CHARACTER_INVENTORY: (state, data) => {
       state.characterInventory.push(...data);
@@ -69,6 +70,20 @@ export default new Vuex.Store({
       });
       return total;
     },
+    getInventoryHitPoints(state) {
+      let total = 0
+      state.characterInventory.forEach(el => {
+        total += el.hpModifier
+      })
+      return total
+    },
+    getInventoryLuckPoints(state) {
+      let total = 0
+      state.characterInventory.forEach(el => {
+        total += el.luckModifier
+      })
+      return total
+    }
   },
   modules: {
   }

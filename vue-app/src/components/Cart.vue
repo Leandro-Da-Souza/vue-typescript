@@ -6,7 +6,7 @@
                     <h2>{{ item.name }} - ${{ item.value }}</h2>
                     <button @click="removeFromCart(item)">X</button>
                 </li>
-                <button @click="addToInventory">Buy Items</button>
+                <button @click="addToInventory()">Buy Items</button>
                 <p>Total amount: {{ this.$store.getters.getCartPrice }}</p>
             </ul>
             <h3 v-else>
@@ -36,7 +36,7 @@ import { Component, Vue } from 'vue-property-decorator'
     },
     methods: {
         addToInventory() {
-            if(this.totalValue >= this.$store.state.currency) {
+            if(this.$store.getters.getCartPrice >= this.$store.state.currency) {
                 alert('You don\'t have enough gold')
             } else {
                 this.$store.commit('ADD_CHARACTER_INVENTORY', this.cartItems)
