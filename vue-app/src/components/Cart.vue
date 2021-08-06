@@ -1,6 +1,7 @@
 <template>
-    <transition name="fade">
+    <transition name="slide-fade">
             <div class="cart" v-if="show">
+                <button @click="handleClose()" class="close-btn">X</button>
                 <div class="cart-items" mode="out-in">
                     <ul v-if="cartItems.length > 0">
                         <li v-for="item in cartItems" class="cart-item" :key="item.id" >
@@ -16,6 +17,7 @@
                 </div>
             </div>
         </transition>
+        
 </template>
 
 <script lang="ts">
@@ -50,6 +52,9 @@ import { Component, Vue } from 'vue-property-decorator'
         removeFromCart(item) {
             this.$store.commit('REMOVE_FROM_CART', item)
             console.log(this.$store.state.cart)
+        },
+        handleClose() {
+            this.$store.commit('TOGGLE_CART')
         }
     }
 })
@@ -58,16 +63,43 @@ export default class Cart extends Vue {}
 </script>
 
 <style scoped>
+@import url('../styles/globals.css');
 .cart {
     position: absolute;
     right: 0;
     top: 0;
+    background-color: var(--global-parchment-background-color);
+    background-image : url(http://api.thumbr.it/whitenoise-361x370.png?background=ffffffff&noise=5c5c5c&density=13&opacity=62);
+    color: var(--global-parchment-color);
+    width: 25vw;
+    height: 100vh;
+    box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
+    display: flex;
+    flex-direction: column;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.cart .close-btn {
+    width: 20px;
+    margin-left: auto;
+    background-color: var(--global-background-color);
+    color: #fff;
+    border: none;
+} 
+
+h3 {
+    text-align: center;
+    margin-top: 50%;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
   opacity: 0;
 }
 

@@ -6,7 +6,10 @@
             <ul v-else class="shop-list">
                 <li v-for="item in equipment" :key="item.id" class="shop-list-item">
                     <h3>{{item.name}}</h3>
-                    <p>Type: {{item.type }}</p>
+                    <div class="type-spec">
+                        <p>Type: {{item.type}}</p>
+                        <img :src="getImage(item.type)" alt="">
+                    </div>
                     <div class="modifiers">
                         <div class="wrapper">
                             <p>Hit Points</p>
@@ -17,6 +20,7 @@
                             {{ item.luckModifier}}
                         </div>
                     </div>
+                    <h3>Value: ${{item.value}}</h3>
                     <button @click="addToCart(item)">Add To Cart</button>
                 </li>
             </ul>
@@ -45,6 +49,18 @@ export default class Shop extends Vue {
         console.log('hello')
         this.$store.commit('SET_CART', element)
     }
+
+    getImage(el) {
+        if(el === 'Armor') {
+            return require('../images/armor.png')
+        } else if(el === 'Weapon') {
+            return require('../images/sword.png')
+        } else if(el === 'Trinket') {
+            return require('../images/key.png')
+        } else {
+            return '';
+        }
+    }
    
 }
 </script>
@@ -53,7 +69,7 @@ export default class Shop extends Vue {
 .container {
     display: flex;
     width: 70vw;
-    height: 70vh;
+    height: 100vh;
     flex-direction: column;
     align-center: center;
     justify-content: center;
@@ -77,14 +93,32 @@ export default class Shop extends Vue {
     grid-template-rows: repeat(3, 1fr);
     /* border: 1px solid white; */
     list-style-type: none;
+    
 }
+
 .shop-list-item {
     border: 1px solid white;
     display: flex;
     flex-direction: column;
     padding: 5px;
-
 }
+
+.shop-list-item h3 {
+    text-align: center;
+}
+
+.shop-list .type-spec {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop-list .type-spec img {
+    width: 50px;
+    height: 50px;
+}
+
 .modifiers {
     display: flex;
     width: 100%;
