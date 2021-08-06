@@ -2,14 +2,18 @@
     <transition name="slide-fade">
             <div class="cart" v-if="show">
                 <button @click="handleClose()" class="close-btn">X</button>
+                <h2>Ye Olde Shopping Cart</h2>
                 <div class="cart-items" mode="out-in">
                     <ul v-if="cartItems.length > 0">
                         <li v-for="item in cartItems" class="cart-item" :key="item.id" >
-                            <h2>{{ item.name }} - ${{ item.value }}</h2>
-                            <button @click="removeFromCart(item)">X</button>
+                            <h4>{{ item.name }} - ${{ item.value }}</h4>
+                            <button @click="removeFromCart(item)" class="close-btn">X</button>
                         </li>
-                        <button @click="addToInventory()">Buy Items</button>
-                        <p>Total amount: {{ this.$store.getters.getCartPrice }}</p>
+                        <div class="checkout">
+                            <button @click="addToInventory()" class="buy-btn">Buy Items</button>
+                            <p>Your Gold: ${{this.$store.state.character.wealth}}</p>
+                            <p>Total amount: ${{ this.$store.getters.getCartPrice }}</p>
+                        </div>
                     </ul>
                     <h3 v-else>
                         No items in your cart
@@ -41,7 +45,7 @@ import { Component, Vue } from 'vue-property-decorator'
     methods: {
         addToInventory() {
             if(this.$store.getters.getCartPrice >= this.$store.state.currency) {
-                alert('You don\'t have enough gold')
+                alert('Not Enough Gold Stranger')
             } else {
                 this.$store.commit('ADD_CHARACTER_INVENTORY', this.cartItems)
                 this.$store.commit('UPDATE_CURRENCY')
@@ -76,6 +80,12 @@ export default class Cart extends Vue {}
     box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.cart-item {
+    display: flex;
+    margin-top: 5px;
 }
 
 .cart .close-btn {
@@ -85,7 +95,17 @@ export default class Cart extends Vue {}
     color: #fff;
     border: none;
 } 
+.cart-items {
+    
+}
 
+.checkout {
+    align-self: flex-end;
+}
+
+h2 {
+    text-align:center;
+}
 h3 {
     text-align: center;
     margin-top: 50%;

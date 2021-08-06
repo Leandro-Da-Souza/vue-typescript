@@ -69,10 +69,11 @@ export default class Shop extends Vue {
 .container {
     display: flex;
     width: 70vw;
-    height: 100vh;
+    /* max-height: 100%; */
     flex-direction: column;
     align-center: center;
     justify-content: center;
+    /* margin-top: 10px; */
 }
 
 
@@ -88,7 +89,7 @@ export default class Shop extends Vue {
 .shop-list {
     display: grid;
     width: 90%;
-    height: 90%;
+    /* height: 90%; */
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     /* border: 1px solid white; */

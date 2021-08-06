@@ -12,8 +12,9 @@
           <router-link to="/inventory">Your Inventory</router-link>
         </div>
         <div class="nav-right">
-          <p>Your Money: ${{this.$store.state.currency}}</p>
-          <button @click="handleClick">Show Cart</button>
+          <p>Your Gold: <br/> ${{this.$store.state.currency}}</p>
+          <!-- <button @click="handleClick">Show Cart</button> -->
+          <font-awesome-icon icon="cart-plus" @click="handleClick" class="icon" size="lg"/>
         </div>
       </div>
       <router-view/>
@@ -96,6 +97,8 @@ img {
 
 .nav-right {
   display: flex;
+  width: 10vw;
+  justify-content: space-evenly
 }
 
 .nav-left {
@@ -132,8 +135,15 @@ img {
   margin-left: 10px;
   width: 40vw;
 }
+
 .title-container .wrapper {
   display: flex;
+}
+
+.icon {
+  cursor: pointer;
+  /* width: 50px; */
+  /* height: 50px; */
 }
 
 
