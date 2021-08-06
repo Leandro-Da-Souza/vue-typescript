@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-    <h1 class="title">
-      The Hunter's Shop
-      <span class="creed">- Help, the Treasure Hunters shout; be calm, we respond!</span>
-    </h1>
-    <div id="nav">
-      <div class="nav-left">
-        <router-link to="/">Shop</router-link> |
-        <router-link to="/inventory">Your Inventory</router-link>
-      </div>
-      <div class="nav-right">
-        <p>Your Money: ${{this.$store.state.currency}}</p>
-        <button @click="handleClick">Show Cart</button>
+    <div class="title-container">
+      <div class="wrapper">
+        <h1 class="title">The Hunter's Shop</h1>
+        <img src="./images/torch.png">
       </div>
     </div>
-    <router-view/>
-    <Cart/>
+      <div id="nav">
+        <div class="nav-left">
+          <router-link to="/">Shop</router-link> |
+          <router-link to="/inventory">Your Inventory</router-link>
+        </div>
+        <div class="nav-right">
+          <p>Your Money: ${{this.$store.state.currency}}</p>
+          <button @click="handleClick">Show Cart</button>
+        </div>
+      </div>
+      <router-view/>
+      <Cart/>
   </div>
 </template>
 
@@ -57,9 +59,33 @@ export default class App extends Vue {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  z-index: 1000;
+}
+img {
+    width: 20px;
+    height: 70px;
+    margin-left: 10px
+}
+
+
+#app {
   color: var(--global-paragraph-color);
   background-color: var(--global-background-color);
-  background-image: url('./images/brick-wall.png')
+  background-image: url('./images/brick-wall.png');
+  height: 100vh;
+  width: 100vw;
+}
+
+#app::after {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to right, #000, #444);
+    opacity: .4;
+    z-index: 0;
 }
 
 #nav {
@@ -89,10 +115,26 @@ export default class App extends Vue {
   font-size: 3.5rem;
   color: var(--global-heading-color);
   font-family: 'Marcellus SC', serif;
+  z-index: 1001
 }
 
 .creed {
   font-size: 0.8rem;
-  font-style: italic
+  font-style: italic;
+  color: var(--global-paragraph-color);
+  z-index: 1000;
+  margin-left: 30px;
 }
+
+.title-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 40vw;
+}
+.title-container .wrapper {
+  display: flex;
+}
+
+
 </style>

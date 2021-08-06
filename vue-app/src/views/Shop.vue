@@ -53,11 +53,12 @@ export default class Shop extends Vue {
 .container {
     display: flex;
     width: 70vw;
-    height: 50vh;
+    height: 70vh;
     flex-direction: column;
     align-center: center;
     justify-content: center;
 }
+
 
 .container h2 {
     text-align: center;

@@ -1,19 +1,21 @@
 <template>
-    <div class="cart" v-if="show">
-        <div class="cart-items">
-            <ul v-if="cartItems.length > 0">
-                <li v-for="item in cartItems" class="cart-item" :key="item.id" >
-                    <h2>{{ item.name }} - ${{ item.value }}</h2>
-                    <button @click="removeFromCart(item)">X</button>
-                </li>
-                <button @click="addToInventory()">Buy Items</button>
-                <p>Total amount: {{ this.$store.getters.getCartPrice }}</p>
-            </ul>
-            <h3 v-else>
-                No items in your cart
-            </h3>
-        </div>
-    </div>
+    <transition name="fade">
+            <div class="cart" v-if="show">
+                <div class="cart-items" mode="out-in">
+                    <ul v-if="cartItems.length > 0">
+                        <li v-for="item in cartItems" class="cart-item" :key="item.id" >
+                            <h2>{{ item.name }} - ${{ item.value }}</h2>
+                            <button @click="removeFromCart(item)">X</button>
+                        </li>
+                        <button @click="addToInventory()">Buy Items</button>
+                        <p>Total amount: {{ this.$store.getters.getCartPrice }}</p>
+                    </ul>
+                    <h3 v-else>
+                        No items in your cart
+                    </h3>
+                </div>
+            </div>
+        </transition>
 </template>
 
 <script lang="ts">
@@ -56,5 +58,18 @@ export default class Cart extends Vue {}
 </script>
 
 <style scoped>
+.cart {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 
 </style>
