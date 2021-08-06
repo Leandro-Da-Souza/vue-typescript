@@ -21,11 +21,11 @@ Structure the components to use either Component({}) type syntax with the option
 Styling wise it could have more padding and margins to make it more "breathy", so that the items arent to close to each other.
 Some animations (fade in) to give it a more alive feeling.
 Make site a bit more reactive, so that the cart display as soon as an item is added.
-Could make more use of typeScript features, vetur kept throwing weird errors.
 
 ## Bugs
 
 Weird bug that doesnt let one add items to cart after one makes a purschase
+Could make more use of typeScript features, ts kept throwing error that globals like this.$store was not available and what not available but compiled it anyway, vetur kept throwing error but compiled regardless.
 
 ## Similar Projects
 
